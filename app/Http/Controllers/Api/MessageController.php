@@ -6,6 +6,9 @@ use Exception;
 use App\Models\Message;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Mail\EmailNotificationAdmin;
+use App\Mail\WelcomeUser;
+use Illuminate\Support\Facades\Mail;
 
 class MessageController extends Controller
 {
@@ -47,7 +50,17 @@ class MessageController extends Controller
             $newEmail->phone = $data['phone'];
             $newEmail->reply = $data['reply'];
 
+            if (isset($newEmail) || !$newEmail) {
+                abort(500, 'Errore durante l\'invio della mail');
+            }
+
             $newEmail->save();
+
+            $email = new EmailNotificationAdmin($newEmail);
+            Mail::to('future-plus@gmail.com')->send($email);
+
+            $email = new WelcomeUser($newEmail);
+            Mail::to($data['email'])->send($email);
 
             return response()->json([
                 'success' => true,

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Response;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\MessageController;
 
@@ -17,6 +18,14 @@ use App\Http\Controllers\Admin\MessageController;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/welcome-user', function () {
+    // Qui puoi generare l'HTML della tua email preimpostata
+    $html = view('reply.welcomeUser')->render(); // Questo è solo un esempio, sostituisci con il tuo percorso e nome del template
+
+    // Restituisci l'HTML come risposta
+    return Response::make($html)->header('Content-Type', 'text/html');
 });
 
 Route::get('/dashboard', function () {
