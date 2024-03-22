@@ -15,7 +15,7 @@ class MessageController extends Controller
      */
     public function index()
     {
-        $messages = Message::all();
+        $messages = Message::orderBy('created_at', 'DESC')->get();
 
         return view('admin.email.index', compact('messages'));
     }
