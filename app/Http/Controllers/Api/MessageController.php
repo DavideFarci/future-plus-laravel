@@ -46,18 +46,19 @@ class MessageController extends Controller
             $newEmail = new Message();
             $newEmail->firstName = $data['firstName'];
             $newEmail->lastName = $data['lastName'];
+            $newEmail->message = $data['message'];
             $newEmail->email = $data['email'];
             $newEmail->phone = $data['phone'];
             $newEmail->reply = $data['reply'];
 
-            if (isset($newEmail) || !$newEmail) {
+            if (!isset($newEmail) || !$newEmail) {
                 abort(500, 'Errore durante l\'invio della mail');
             }
 
             $newEmail->save();
 
-            $email = new EmailNotificationAdmin($newEmail);
-            Mail::to('future-plus@gmail.com')->send($email);
+            // $email = new EmailNotificationAdmin($newEmail);
+            // Mail::to('future-plus@gmail.com')->send($email);
 
             $email = new WelcomeUser($newEmail);
             Mail::to($data['email'])->send($email);

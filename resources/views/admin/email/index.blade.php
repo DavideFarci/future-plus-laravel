@@ -25,17 +25,29 @@
                     </thead>
                     <tbody>
                         @foreach ($messages as $message)
-                            <tr onclick="window.location.href='{{ route('admin.email.show', $message->id) }}'" class="odd:bg-slate-700 hover:opacity-60 md:hover:cursor-pointer">
-                                <td class="p-2 text-sm font-semibold">
-                                    {{ $message->firstName}} {{ $message->lastName }}
+                            <tr class="odd:bg-slate-300 dark:odd:bg-slate-700 hover:opacity-60">
+                                <td 
+                                    class=" text-sm font-semibold md:hover:cursor-pointer"
+                                >
+                                    <a class="block h-full p-2" href="{{ route('admin.email.show', $message->id) }}">
+                                        {{ $message->firstName}} {{ $message->lastName }}
+                                    </a>
                                 </td>
-                                <td class="p-2 text-xs block truncate">
+                                <td 
+                                    class="span-2 text-xs block truncate md:hover:cursor-pointere"
+                                >
+                                    <a class="block h-full p-2" href="{{ route('admin.email.show', $message->id) }}">
                                         {{ $message->message }}
+                                    </a>
                                 </td>
-                                <td class="hidden md:table-cell text-right p-2 text-xs">
-                                    {{ date('d/m/Y H:i', strtotime($message->created_at)) }}
+                                <td 
+                                    class="hidden md:table-cell text-right  text-xs md:hover:cursor-pointer"
+                                >
+                                    <a class="block h-full p-2" href="{{ route('admin.email.show', $message->id) }}">
+                                        {{ date('d/m/Y H:i', strtotime($message->created_at)) }}
+                                    </a>
                                 </td>
-                                <td class="p-2 text-sm  text-right">
+                                <td class="p-2 text-sm text-right "> 
                                     <button>X</button>
                                 </td>
                             </tr>

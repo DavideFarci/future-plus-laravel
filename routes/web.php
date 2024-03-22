@@ -22,7 +22,7 @@ Route::get('/', function () {
 
 Route::get('/welcome-user', function () {
     // Qui puoi generare l'HTML della tua email preimpostata
-    $html = view('reply.welcomeUser')->render(); // Questo è solo un esempio, sostituisci con il tuo percorso e nome del template
+    $html = view('reply.welcomeUser')->render();
 
     // Restituisci l'HTML come risposta
     return Response::make($html)->header('Content-Type', 'text/html');
