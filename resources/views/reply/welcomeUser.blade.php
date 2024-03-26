@@ -69,12 +69,6 @@
     </style>
 </head>
 
-    <?php 
-        $newEmail = [
-            'reply' => 1
-        ];
-    ?>
-
 <body>
     <header>
         <div class="container">
