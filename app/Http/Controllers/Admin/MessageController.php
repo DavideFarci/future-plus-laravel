@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Message;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Exception;
 
 class MessageController extends Controller
 {
@@ -99,10 +100,19 @@ class MessageController extends Controller
      */
     public function destroy($id)
     {
-        $message = Message::where('id', $id)->firstOfFail();
+        try {
+            // dd($id);
+            $message = Message::where('id', $id)->firstOrFail();
 
-        $message->delete();
-        return to_route('admin.email.index')->with('delete_success', $message);
+            if (!isset($message) || !$message) {
+                abort(404, 'Email non trovata');
+            }
+
+            $message->delete();
+            return to_route('admin.email.index')->with('delete_success', $message);
+        } catch (Exception $e) {
+            return response()->json(['error' => 'errore durante la eliminazione della mail: ' . $e->getMessage()]);
+        }
     }
 
     public function restore($id)
