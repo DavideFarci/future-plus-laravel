@@ -58,7 +58,7 @@ class MessageController extends Controller
             $newEmail->save();
 
             $email = new EmailNotificationAdmin($newEmail);
-            Mail::to('test@dashboardristorante.it')->send($email);
+            Mail::to('info@future-plus.it')->send($email);
 
             $email = new WelcomeUser($newEmail);
             Mail::to($data['email'])->send($email);
