@@ -19,17 +19,15 @@
                 <div class="text-sm text-slate-500 font-semibold">{{ date('d/m/Y H:i', strtotime($message->created_at)) }}</div>
                 <p class="py-6">{{ $message->message }}</p>
 
+                <div>Email: {{ $message->email }}</div>
+                <div>Telefono: {{ $message->phone }}</div>
+
                 <div class="font-semibold text-sm mb-4">Vorrei essere ricontattato tramite: </div>
                 @if ($message->reply == 1)
                     <a class="inline px-4 py-2 bg-slate-600 rounded shodow" href="mailto:{{ $message->email }}">{{ $message->email }}</a>
                 @elseif ($message->reply == 2)
-                    <div class="inline px-4 py-2 bg-slate-600 rounded shodow">
-                        {{ $message->phone }}
-                    </div>
+                    <a class="inline px-4 py-2 bg-slate-600 rounded shodow" href="tel:{{ $message->phone }}">{{ $message->phone }}</a>
                 @elseif ($message->reply == 3)
-                    {{-- <div class="inline px-4 py-2 bg-slate-600 rounded shodow">
-                        {{ $message->phone }} - WhatsApp
-                    </div> --}}
                     <a class="inline px-4 py-2 bg-slate-600 rounded shodow" href="{{ "https://wa.me/" . '39' . $message->phone }}">{{ $message->phone }} - WhatsApp</a>
                 @endif
             </div>
