@@ -20,12 +20,17 @@
                 <p class="py-6">{{ $message->message }}</p>
 
                 <div class="font-semibold text-sm mb-4">Vorrei essere ricontattato tramite: </div>
-                @if ($message->reply == 0)
+                @if ($message->reply == 1)
                     <a class="inline px-4 py-2 bg-slate-600 rounded shodow" href="mailto:{{ $message->email }}">{{ $message->email }}</a>
-                @elseif ($message->reply == 1)
+                @elseif ($message->reply == 2)
                     <div class="inline px-4 py-2 bg-slate-600 rounded shodow">
                         {{ $message->phone }}
                     </div>
+                @elseif ($message->reply == 3)
+                    {{-- <div class="inline px-4 py-2 bg-slate-600 rounded shodow">
+                        {{ $message->phone }} - WhatsApp
+                    </div> --}}
+                    <a class="inline px-4 py-2 bg-slate-600 rounded shodow" href="{{ "https://wa.me/" . '39' . $message->phone }}">{{ $message->phone }} - WhatsApp</a>
                 @endif
             </div>
         </div>

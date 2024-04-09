@@ -49,7 +49,7 @@ class MessageController extends Controller
             $newEmail->message = $data['message'];
             $newEmail->email = $data['email'];
             $newEmail->phone = $data['phone'];
-            $newEmail->reply = $data['reply'];
+            $newEmail->reply = intval($data['reply']);
 
             if (!isset($newEmail) || !$newEmail) {
                 abort(500, 'Errore durante l\'invio della mail');
