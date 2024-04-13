@@ -20,11 +20,17 @@ class MessageController extends Controller
 
             $newEmail = new Message();
             $newEmail->name = $data['firstName'] . ' ' . $data['lastName'];
-            $newEmail->message = $data['message'];
             $newEmail->email = $data['email'];
             $newEmail->phone = $data['phone'];
             $newEmail->reply = intval($data['reply']);
+            if (isset($data['message'])) {
+                $newEmail->message = $data['message'];
+                # code...
+            }else{
+                $newEmail->message = ' ';
 
+            }
+            
             if (!isset($newEmail) || !$newEmail) {
                 abort(500, 'Errore durante l\'invio della mail');
             }

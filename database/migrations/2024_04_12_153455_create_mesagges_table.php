@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('consumer_id')->default('0'); 
+            $table->unsignedBigInteger('consumer_id')->default('1'); 
             $table->foreign('consumer_id')->references('id')->on('consumers');
             $table->string('name', 80);
             $table->string('email', 100);
