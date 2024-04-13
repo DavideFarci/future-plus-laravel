@@ -15,8 +15,9 @@ return new class extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->string('firstName', 50);
-            $table->string('lastName', 50);
+            $table->unsignedBigInteger('consumer_id')->default('0'); 
+            $table->foreign('consumer_id')->references('id')->on('consumers');
+            $table->string('name', 80);
             $table->string('email', 100);
             $table->string('phone', 20);
             $table->text('message');

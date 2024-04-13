@@ -1,8 +1,10 @@
 <?php
 
-use App\Http\Controllers\Api\MessageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\MessageController;
+use App\Http\Controllers\Api\ConsumerController;
+use App\Http\Controllers\Api\CustumerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +22,5 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::post('email',           [MessageController::class, 'store'])->name('api.email.store');
+Route::post('consumers',       [ConsumerController::class, 'store'])->name('api.consumers.store');
+Route::post('custumers',       [CustumerController::class, 'store'])->name('api.custumers.store');

@@ -79,7 +79,7 @@
     <main>
         <div class="container">
             <p class="first">
-                Grazie per esserti rivolto a Future +
+                Grazie {{$newEmail['name']}} per esserti rivolto a Future +
             </p>
             <p>
                 La sua richiesta è stata ricevuta ed è ora fase in elaborazione <br>
@@ -106,7 +106,7 @@
             <h3>Future +</h3>
             <div>P. IVA 
                 <span>
-                    12345678901234
+                    02974730422
                 </span>
             </div>
         </div>

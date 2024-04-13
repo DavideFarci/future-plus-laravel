@@ -21,6 +21,11 @@ class UsersTableSeeder extends Seeder
                 'name'      => 'Davide Farci',
                 'email'     => 'davide.farci9@gmail.com',
                 'password'  => Hash::make('Davide$1'),
+            ],
+            [
+                'name'      => 'Ceo',
+                'email'     => 'info@future-plus.it',
+                'password'  => Hash::make('Th3l3z'),
             ]
         ];
 

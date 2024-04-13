@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Response;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\MessageController;
+use App\Http\Controllers\Admin\ConsumerController;
+use App\Http\Controllers\Admin\CustumerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +21,11 @@ use App\Http\Controllers\Admin\MessageController;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+
 
 Route::get('/welcome-user', function () {
     // Qui puoi generare l'HTML della tua email preimpostata
@@ -27,10 +34,6 @@ Route::get('/welcome-user', function () {
     // Restituisci l'HTML come risposta
     return Response::make($html)->header('Content-Type', 'text/html');
 });
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware(['auth', 'verified'])
     ->name('admin.')
@@ -44,7 +47,11 @@ Route::middleware(['auth', 'verified'])
 
         // Risorse
         Route::resource('email', MessageController::class);
-    });
+        Route::resource('consumers', ConsumerController::class);
+        Route::resource('custumers', CustumerController::class);
+});
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
