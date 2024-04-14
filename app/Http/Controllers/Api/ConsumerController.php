@@ -12,6 +12,24 @@ class ConsumerController extends Controller
     {
         try {
             $data = $request->all();
+            $check = false;
+            $consumers = Consumer::all();
+            $oldC;
+            foreach ($c as $consumers) {
+                if ($c['email'] == $data['email'] ) {
+                    $check = true;
+                }
+            }
+            if ($check && $data['new']== 'old'){
+                $oldC = Consumers::where('email', $data['email'])->get();
+                return response()->json([
+                    'success'  => true,
+                    'old'      => true,
+                    'utente'   => $oldC
+                ]);
+            }else($check && $data['new']== 'new'){
+                
+            }
 
             $consumer = new Consumer();
             $consumer->firstName = $data['firstName'];
@@ -26,6 +44,7 @@ class ConsumerController extends Controller
 
             $consumer->save();
 
+
             // $email = new EmailNotificationAdmin($consumer);
             // Mail::to('info@future-plus.it')->send($email);
 
@@ -33,7 +52,8 @@ class ConsumerController extends Controller
             // Mail::to($data['email'])->send($email);
 
             return response()->json([
-                'success' => true,
+                'success'  => true,
+                'old'      => false,
                 'utente'   => $consumer
             ]);
         } catch (Exception $e) {
