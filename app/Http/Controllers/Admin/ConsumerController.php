@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Consumer;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ConsumerController extends Controller
 {
@@ -14,7 +15,9 @@ class ConsumerController extends Controller
      */
     public function index()
     {
-        //
+        $consumers = Consumer::orderBy('created_at', 'DESC')->get();
+
+        return view('admin.consumers.index', compact('consumers'));
     }
 
     /**

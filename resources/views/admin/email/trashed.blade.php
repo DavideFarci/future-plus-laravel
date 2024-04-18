@@ -36,7 +36,7 @@
                                 <td 
                                     class="p-2 text-sm font-semibold "
                                 >
-                                    {{ $message->firstName}} {{ $message->lastName }}
+                                    {{ $message->name }}
                                 </td>
                                 <td 
                                     class="p-2 text-xs block truncate"

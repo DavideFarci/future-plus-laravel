@@ -15,27 +15,41 @@ class ConsumerController extends Controller
             $check = false;
             $consumers = Consumer::all();
             $oldC;
-            foreach ($c as $consumers) {
+            foreach ($consumers as $c) {
                 if ($c['email'] == $data['email'] ) {
                     $check = true;
+                    return response()->json([
+                        'success'  => true,
+                        'old'      => true,
+                        'utente'   => $c
+                    ]);
                 }
             }
-            if ($check && $data['new']== 'old'){
+            if (isset($data['new'])){
                 $oldC = Consumers::where('email', $data['email'])->get();
                 return response()->json([
                     'success'  => true,
                     'old'      => true,
                     'utente'   => $oldC
                 ]);
-            }else($check && $data['new']== 'new'){
-                
+            }else if($check && $data['new']== 'new'){
+                $consumer = Consumers::where('email', $data['email'])->get();
+                $consumer->firstName = $data['firstName'];
+                $consumer->lastName = $data['lastName'];
+                $consumer->phone = $data['phone'];
+                $consumer->update();     
+                return response()->json([
+                    'success'  => true,
+                    'old'      => 'update',
+                    'utente'   => $consumer
+                ]);
             }
 
             $consumer = new Consumer();
             $consumer->firstName = $data['firstName'];
             $consumer->lastName = $data['lastName'];
-            $consumer->email = $data['email'];
             $consumer->phone = $data['phone'];
+            $consumer->email = $data['email'];
             $consumer->status = 1;
            
             if (!isset($consumer) || !$consumer) {

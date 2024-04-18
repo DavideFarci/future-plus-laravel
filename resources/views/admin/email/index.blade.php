@@ -30,7 +30,7 @@
                                     class=" text-sm font-semibold md:hover:cursor-pointer"
                                 >
                                     <a class="block h-full p-2" href="{{ route('admin.email.show', $message->id) }}">
-                                        {{ $message->firstName}} {{ $message->lastName }}
+                                        {{ $message->name}}
                                     </a>
                                 </td>
                                 <td 

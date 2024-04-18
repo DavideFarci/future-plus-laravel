@@ -2,12 +2,12 @@
     <x-slot name="header">
         <div class="flex justify-between items-center">
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{ __('Consumers') }}
+                {{ __('Email') }}
             </h2>
 
             <nav class="flex gap-2 text-xs md:text-lg text-white">
-                <a class="sub-nav-link" href="{{route('admin.consumers.index')}}">In Arrivo</a>
-                <a class="sub-nav-link" href="{{route('admin.consumers.trashed')}}">Cestino</a>
+                <a class="sub-nav-link" href="{{route('admin.email.index')}}">In Arrivo</a>
+                <a class="sub-nav-link" href="{{route('admin.email.trashed')}}">Cestino</a>
             </nav>
         </div>
     </x-slot>

@@ -19,6 +19,12 @@
                     <x-nav-link :href="route('admin.email.index')" :active="request()->routeIs('admin.email.index')">
                         {{ __('Email') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('admin.consumers.index')" :active="request()->routeIs('admin.consumers.index')">
+                        {{ __('Utenti') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('admin.custumers.index')" :active="request()->routeIs('admin.custumers.index')">
+                        {{ __('Clienti') }}
+                    </x-nav-link>
                 </div>
             </div>
 

@@ -17,38 +17,38 @@
                 <table class="w-full table-fixed text-white">
                     <thead>
                       <tr>
-                        <th class="p-4 text-left">Mittente</th>
+                        <th class="p-4 text-left">Nome</th>
                         <th class="p-4">Messaggio</th>
                         <th class="hidden md:table-cell text-right p-4 pr-8">Data</th>
                         <th class="p-4 text-right">Azioni</th>
                       </tr>
                     </thead>
                     <tbody>
-                        @foreach ($messages as $message)
+                        @foreach ($consumers as $consumer)
                             <tr class="odd:bg-slate-300 dark:odd:bg-slate-700 hover:opacity-60">
                                 <td 
                                     class=" text-sm font-semibold md:hover:cursor-pointer"
                                 >
-                                    <a class="block h-full p-2" href="{{ route('admin.email.show', $message->id) }}">
-                                        {{ $message->firstName}} {{ $message->lastName }}
+                                    <a class="block h-full p-2" href="{{ route('admin.email.show', $consumer->id) }}">
+                                        {{ $consumer->firstName . ' ' . $consumer->lastName}}
                                     </a>
                                 </td>
                                 <td 
                                     class="span-2 text-xs block truncate md:hover:cursor-pointere"
                                 >
-                                    <a class="block h-full p-2" href="{{ route('admin.email.show', $message->id) }}">
-                                        {{ $message->message }}
+                                    <a class="block h-full p-2" href="{{ route('admin.email.show', $consumer->id) }}">
+                                        {{ $consumer->message }}
                                     </a>
                                 </td>
                                 <td 
                                     class="hidden md:table-cell text-right  text-xs md:hover:cursor-pointer"
                                 >
-                                    <a class="block h-full p-2" href="{{ route('admin.email.show', $message->id) }}">
-                                        {{ date('d/m/Y H:i', strtotime($message->created_at)) }}
+                                    <a class="block h-full p-2" href="{{ route('admin.consumers.show', $consumer->id) }}">
+                                        {{ date('d/m/Y H:i', strtotime($consumer->created_at)) }}
                                     </a>
                                 </td>
                                 <td class="p-2 text-sm text-right ">
-                                    <form action="{{ route('admin.email.destroy', ['email' => $message]) }}" method="POST">
+                                    <form action="{{ route('admin.consumers.destroy', ['consumer' => $consumer]) }}" method="POST">
                                         @csrf
                                         @method('delete')
                                         <button  class="hidden md:table-cell text-xs py-1 px-4 border rounded hover:scale-105 hover:transition-all hover:duration-150 hover:bg-slate-600">Elimina</button>
