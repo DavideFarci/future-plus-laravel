@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Custumer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Mail\EmailNotificationAdmin;
 use Illuminate\Support\Facades\Storage;
 
 class CustumerController extends Controller
@@ -16,8 +17,17 @@ class CustumerController extends Controller
             //dd($data);
             $arrvar = str_replace('\\', '', $data['consumersData']);
             $body = json_decode($arrvar, true);
+
+            $consumer = Consumer::where('email' ,$body[0]['email'])->firstOrFail();
+            if (!$consumer){
+                return response()->json([
+                    'success'  => false,
+                    'message'  => 'L\'utente non compare nei primi dati, riprovare da capo'
+                ]);
+            }
             
             $custumer = new Custumer();
+            $custumer->consumer_id = $consumer->id;
             $custumer->c_f = $body[1]['cf'];
             $custumer->pec = $body[1]['pec'];
             $custumer->r_s = $body[1]['r_s'];
@@ -31,48 +41,16 @@ class CustumerController extends Controller
             $custumer->service_times = json_encode($body[2][ 'service_time'] , true) ;
             $custumer->link_menu = $body[3][ 'link_menu'];
             //d
-            
-
             if ($request->hasFile('image')) {
-                $images = $request->file('image');
-               // $custumer->images_menu = $images['0'];
-        
-               $arrimg = [];
-                foreach ($images as $image) {
-                    // Salva l'immagine nella directory desiderata (ad esempio storage/app/public)
-                    $path = Storage::put('public/uploads', $image);
-                    // Puoi fare ulteriori operazioni qui, come salvare il percorso dell'immagine nel database
+                $images = $request->file('image');        
+                $arrimg = [];
+                foreach ($images as $image) { 
+                    $path = Storage::put('public/uploads', $image);             
                     array_push($arrimg, $path);
-                }
-                
+                }    
                 $custumer->images_menu = json_encode($arrimg , true);
             }
-
-
-            // if (isset($data['image'])) {
-            //     foreach ($request->file('image') as $img ) {
-            //         $imagePath = Storage::put('public/uploads', $img['name']);
-            //         array_push($arrimg, $img['name']);
-            //     };
-            //     $arrimg = json_encode($arrimg);
-            //     $custumer->images_menu = $arrimg;
-            // }
-
-            // if ($request->hasFile('image')) {
-            //     $imagePaths = [];
-            //     foreach ($request->file('image') as $image) {
-            //         $filename = time(). '_' . $image->getClientOriginalName();
-            //         $image->storeAs('public/uploads', $filename);
-            //         
-            //     }
-            //     
-            //     $custumer->images_menu = $imagePaths;
-            // };
-    
-            // Salvataggio dei dati con i percorsi delle immagini come array JSON
-
-        
-            
+      
            
             if (!isset($custumer) || !$custumer) {
                 abort(500, 'Errore durante l\'invio della mail');
@@ -81,11 +59,11 @@ class CustumerController extends Controller
             $custumer->save();
 
 
-            // $email = new EmailNotificationAdmin($custumer);
-            // Mail::to('info@future-plus.it')->send($email);
+            $email = new EmailNotificationAdmin($custumer);
+            Mail::to('info@future-plus.it')->send($email);
 
-            // $email = new WelcomeUser($custumer);
-            // Mail::to($data['email'])->send($email);
+            $email = new WelcomeUser($custumer);
+            Mail::to($consumer['email'])->send($email);
 
             return response()->json([
                 'success'  => true,

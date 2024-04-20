@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Custumer;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class CustumerController extends Controller
 {
@@ -14,7 +15,9 @@ class CustumerController extends Controller
      */
     public function index()
     {
-        //
+        $custumers = Custumer::orderBy('created_at', 'DESC')->get();
+
+        return view('admin.custumers.index', compact('custumers'));
     }
 
     /**

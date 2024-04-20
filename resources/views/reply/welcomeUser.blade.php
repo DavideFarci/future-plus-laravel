@@ -72,7 +72,7 @@
 <body>
     <header>
         <div class="container">
-            <h1>Benvenuto in Future+, {{ $newEmail['firstName'] }}</h1>
+            <h1>Benvenuto in Future+</h1>
         </div>
     </header>
 
