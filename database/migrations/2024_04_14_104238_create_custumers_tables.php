@@ -19,16 +19,16 @@ return new class extends Migration
             $table->foreign('consumer_id')->references('id')->on('consumers');
             //b
             $table->string('c_f', 50);
-            $table->string('pec', 150);
-            $table->string('r_s', 150);
-            $table->string('p_iva', 15);
+            $table->string('pec', 150)->nullable();
+            $table->string('r_s', 150)->nullable();
+            $table->string('p_iva', 15)->nullable();
             $table->string('address', 100);
             $table->string('city', 100);
             $table->string('district', 2);
             $table->tinyInteger('type_agency');//(ditta ind. = 1, liber pr = 2, ditta individuale = 3...)
             //c
-            $table->text('opening_times');
-            $table->text('service_times');
+            $table->text('opening_times')->nullable();
+            $table->text('service_times')->nullable();
             $table->text('images_menu')->nullable();
             $table->string('link_menu')->nullable();
             //d

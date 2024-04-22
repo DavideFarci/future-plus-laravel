@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Consumer;
 use App\Models\Custumer;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -17,6 +18,8 @@ class CustumerController extends Controller
             //dd($data);
             $arrvar = str_replace('\\', '', $data['consumersData']);
             $body = json_decode($arrvar, true);
+
+            //dd($body[0]['email']);
 
             $consumer = Consumer::where('email' ,$body[0]['email'])->firstOrFail();
             if (!$consumer){
